@@ -5,10 +5,6 @@ import { parseQueryString } from './utils';
 class App extends Component {
   constructor() {
     super();
-
-    this.state = {
-      authenticated: false
-    }
   }
 
   componentDidMount() {
@@ -45,6 +41,9 @@ class App extends Component {
     {localStorage.getItem('token') ? (
           <div id="authed-section">
           <button onClick={this.logOut}>Logout</button>
+          <div>
+            {}
+          </div>
           </div>
     ) : (
       <div id="pre-auth-section">
