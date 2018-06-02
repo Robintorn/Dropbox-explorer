@@ -5,9 +5,14 @@ const RenderItems = ({text}) => {
   return(
     <div>
       {text[".tag"] === 'file' &&
+      <div>
         <h2>
           file
         </h2>
+        <p>
+        {text.size}kb
+      </p>
+      </div>
       }
 
       {text[".tag"] === 'folder' &&
@@ -19,9 +24,6 @@ const RenderItems = ({text}) => {
         {text.server_modified}
         <br/>
         {text.name}
-      </p>
-      <p>
-        {text.size}kb
       </p>
     </div>
   )
