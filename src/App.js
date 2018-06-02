@@ -2,6 +2,26 @@ import React, { Component } from 'react';
 import { Dropbox } from 'dropbox';
 import { parseQueryString } from './utils';
 
+const RenderIfLoggedin = ({logout}) => (
+  <div>
+  <button onClick={logout}>Logout</button>
+  </div>
+)
+
+const RenderIfLoggedOut = () => (
+  <a onClick={() => name()}>Login</a>
+)
+
+const name = () => {
+      // or your "App key" in Dropbox lingo.
+      var CLIENT_ID = '2e9a5elj4q8ikcs'; 
+      
+          // note: This must correspond exactly to the redirect URI you've specified for your
+          // Dropbox app.
+      var dbx = new Dropbox({ clientId: CLIENT_ID });
+      window.location = dbx.getAuthenticationUrl('http://localhost:3000/');
+}
+
 class App extends Component {
   constructor() {
     super();
@@ -26,28 +46,16 @@ class App extends Component {
 
   logOut = () => {
         localStorage.removeItem('token');
+        window.location.reload();
     };
 
   render() {
-          // or your "App key" in Dropbox lingo.
-    var CLIENT_ID = '2e9a5elj4q8ikcs'; 
-  
-      // note: This must correspond exactly to the redirect URI you've specified for your
-      // Dropbox app.
-    var dbx = new Dropbox({ clientId: CLIENT_ID });
-    const authUrl = dbx.getAuthenticationUrl('http://localhost:3000/');
     return (
-    <div className="container main">
-    {localStorage.getItem('token') ? (
-          <div id="authed-section">
-          <button onClick={this.logOut}>Logout</button>
-          <div>
-            {}
-          </div>
-          </div>
-    ) : (
-      <div id="pre-auth-section">
-      <a href={authUrl} id="authlink" className="button">Login</a>
+    <div className="App">
+    {localStorage.getItem('token') ? <RenderIfLoggedin logout={this.logOut}/>
+      : (
+      <div>
+      <RenderIfLoggedOut />
     </div>
     )}
     </div>
