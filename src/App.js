@@ -28,20 +28,24 @@ const name = () => {
       window.location = dbx.getAuthenticationUrl('http://localhost:3000/');
 }
 
+const items = () => {
+  var dbx = new Dropbox({ accessToken: "BW7-qRPIdfAAAAAAAAAAqOmgydS8vuJdIJja8Wz3Xx00_gpmTnRsSQBMfkrKVXA_" });
+  dbx.filesListFolder({path: ''})
+  .then((response) => {
+    console.log(response.entries);
+  })
+  .catch((error) => {
+    console.error(error);
+  });
+}
+
 class App extends Component {
 
   componentDidMount() {
     let token;
     if (localStorage.getItem('token')) {
         token = localStorage.getItem('token');
-        var dbx = new Dropbox({ accessToken: "BW7-qRPIdfAAAAAAAAAAqOmgydS8vuJdIJja8Wz3Xx00_gpmTnRsSQBMfkrKVXA_" });
-        dbx.filesListFolder({path: ''})
-        .then((response) => {
-          console.log(response.entries);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
+        items();
     } else {
         token = parseQueryString(window.location.hash).access_token;
         if (!token) {
