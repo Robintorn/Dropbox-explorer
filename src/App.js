@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import { Dropbox } from 'dropbox';
 import { parseQueryString } from './utils';
 
+// Components
+
+import Items from './Items';
+
 const RenderIfLoggedin = ({logout}) => (
   <div>
   <button onClick={logout}>Logout</button>
@@ -12,14 +16,6 @@ const RenderIfLoggedOut = () => (
   <a onClick={() => name()}>Login</a>
 )
 
-const RenderItems = ({text}) => (
-  <div>
-    <p>
-      {text.name}
-    </p>
-  </div>
-)
-
 const name = () => {
       // or your "App key" in Dropbox lingo.
       var CLIENT_ID = '2e9a5elj4q8ikcs'; 
@@ -28,43 +24,6 @@ const name = () => {
           // Dropbox app.
       var dbx = new Dropbox({ clientId: CLIENT_ID });
       window.location = dbx.getAuthenticationUrl('http://localhost:3000/');
-}
-
-class Items extends Component {
-  constructor() {
-    super();
-
-    this.state = {
-      items: []
-    }
-  }
-
-  componentWillMount() {
-    let dbx = new Dropbox({ accessToken: "BW7-qRPIdfAAAAAAAAAAqOmgydS8vuJdIJja8Wz3Xx00_gpmTnRsSQBMfkrKVXA_" });
-    dbx.filesListFolder({path: ''})
-    .then((response) => this.onClick(response.entries))
-    .catch((error) => {
-      console.error(error);
-    });
-  }
-
-  onClick = (response) => {
-    this.setState({
-      items: response
-    })
-  }
-
-  render(){
-  return(
-    <div>
-      {this.state.items.map((item) => {
-        return(
-          <RenderItems key={item.id} text={item}/>
-        )
-      })}
-    </div>
-  )
-}
 }
 
 class App extends Component {
