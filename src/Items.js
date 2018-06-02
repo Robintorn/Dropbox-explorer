@@ -4,15 +4,24 @@ import { Dropbox } from 'dropbox';
 const RenderItems = ({text}) => {
   return(
     <div>
-    {text[".tag"] === "file" ? (
-      <p>file</p>
-    ) : (
-      <div>
-        asd
-      </div>
-    )}
+      {text[".tag"] === 'file' &&
+        <h2>
+          file
+        </h2>
+      }
+
+      {text[".tag"] === 'folder' &&
+        <h2>
+          folder
+        </h2>
+      }
       <p>
+        {text.server_modified}
+        <br/>
         {text.name}
+      </p>
+      <p>
+        {text.size}kb
       </p>
     </div>
   )
