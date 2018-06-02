@@ -12,6 +12,14 @@ const RenderIfLoggedOut = () => (
   <a onClick={() => name()}>Login</a>
 )
 
+const RenderItems = ({text}) => (
+  <div>
+    <p>
+      {text.name}
+    </p>
+  </div>
+)
+
 const name = () => {
       // or your "App key" in Dropbox lingo.
       var CLIENT_ID = '2e9a5elj4q8ikcs'; 
@@ -22,17 +30,41 @@ const name = () => {
       window.location = dbx.getAuthenticationUrl('http://localhost:3000/');
 }
 
-const Items = () => {
-  var dbx = new Dropbox({ accessToken: "BW7-qRPIdfAAAAAAAAAAqOmgydS8vuJdIJja8Wz3Xx00_gpmTnRsSQBMfkrKVXA_" });
-  dbx.filesListFolder({path: ''})
-  .then((response) => {
-    response.entries.map((item) => {
-      return(console.log(item.name))
+class Items extends Component {
+  constructor() {
+    super();
+
+    this.state = {
+      items: []
+    }
+  }
+
+  componentWillMount() {
+    let dbx = new Dropbox({ accessToken: "BW7-qRPIdfAAAAAAAAAAqOmgydS8vuJdIJja8Wz3Xx00_gpmTnRsSQBMfkrKVXA_" });
+    dbx.filesListFolder({path: ''})
+    .then((response) => this.onClick(response.entries))
+    .catch((error) => {
+      console.error(error);
+    });
+  }
+
+  onClick = (response) => {
+    this.setState({
+      items: response
     })
-  })
-  .catch((error) => {
-    console.error(error);
-  });
+  }
+
+  render(){
+  return(
+    <div>
+      {this.state.items.map((item) => {
+        return(
+          <RenderItems key={item.id} text={item}/>
+        )
+      })}
+    </div>
+  )
+}
 }
 
 class App extends Component {
@@ -41,7 +73,6 @@ class App extends Component {
     let token;
     if (localStorage.getItem('token')) {
         token = localStorage.getItem('token');
-        Items();
     } else {
         token = parseQueryString(window.location.hash).access_token;
         if (!token) {
@@ -65,6 +96,7 @@ class App extends Component {
     {localStorage.getItem('token') ? (
     <div>
     <RenderIfLoggedin logout={this.logOut}/>
+    <Items />
     </div>
     )
       : (
