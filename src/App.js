@@ -12,12 +12,6 @@ const RenderIfLoggedOut = () => (
   <a onClick={() => name()}>Login</a>
 )
 
-const RenderItems = (props) => (
-  <div>
-aasdasd
-  </div>
-)
-
 const name = () => {
       // or your "App key" in Dropbox lingo.
       var CLIENT_ID = '2e9a5elj4q8ikcs'; 
@@ -28,11 +22,13 @@ const name = () => {
       window.location = dbx.getAuthenticationUrl('http://localhost:3000/');
 }
 
-const items = () => {
+const Items = () => {
   var dbx = new Dropbox({ accessToken: "BW7-qRPIdfAAAAAAAAAAqOmgydS8vuJdIJja8Wz3Xx00_gpmTnRsSQBMfkrKVXA_" });
   dbx.filesListFolder({path: ''})
   .then((response) => {
-    console.log(response.entries);
+    response.entries.map((item) => {
+      return(console.log(item.name))
+    })
   })
   .catch((error) => {
     console.error(error);
@@ -45,7 +41,7 @@ class App extends Component {
     let token;
     if (localStorage.getItem('token')) {
         token = localStorage.getItem('token');
-        items();
+        Items();
     } else {
         token = parseQueryString(window.location.hash).access_token;
         if (!token) {
@@ -69,7 +65,6 @@ class App extends Component {
     {localStorage.getItem('token') ? (
     <div>
     <RenderIfLoggedin logout={this.logOut}/>
-    <RenderItems />
     </div>
     )
       : (
