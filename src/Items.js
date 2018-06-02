@@ -1,13 +1,22 @@
 import React, { Component } from 'react';
 import { Dropbox } from 'dropbox';
 
-const RenderItems = ({text}) => (
+const RenderItems = ({text}) => {
+  return(
     <div>
+    {text[".tag"] === "file" ? (
+      <p>file</p>
+    ) : (
+      <div>
+        asd
+      </div>
+    )}
       <p>
         {text.name}
       </p>
     </div>
   )
+}
 
 class Items extends Component {
     constructor() {
@@ -28,6 +37,7 @@ class Items extends Component {
     }
   
     onClick = (response) => {
+      console.log(response);
       this.setState({
         items: response
       })
