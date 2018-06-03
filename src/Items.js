@@ -29,6 +29,13 @@ const RenderItems = ({text}) => {
   )
 }
 
+const RenderUpload = ({upload}) => (
+  <form onSubmit={upload}>
+  <input type="file" id="upload-file" placeholder="Upload file" />
+  <button type="submit">Upload</button>
+  </form>
+)
+
 class Items extends Component {
     constructor() {
       super();
@@ -54,13 +61,14 @@ class Items extends Component {
       })
     }
 
-    uploadFile = () => {
+    uploadFile = (e) => {
+
+    e.preventDefault();
       
     const UPLOAD_FILE_SIZE_LIMIT = 150 * 1024 * 1024;
     var dbx = new Dropbox({ accessToken: "BW7-qRPIdfAAAAAAAAAAxXtENJaBF6PObfF7GcSOFtdYMseuO_XndDdDhrCOpyWc" });
     var fileInput = document.getElementById('upload-file');
     var file = fileInput.files[0];
-    
     
     if (file.size < UPLOAD_FILE_SIZE_LIMIT) { // File is smaller than 150 Mb - use filesUpload API
       dbx.filesUpload({path: '/' + file.name, contents: file})
@@ -118,10 +126,7 @@ class Items extends Component {
     render(){
     return(
       <div>
-        <form onSubmit={this.uploadFile}>
-            <input type="file" id="upload-file" placeholder="Upload file" ref="input" />
-            <button type="submit">Upload</button>
-        </form>
+      <RenderUpload upload={this.uploadFile}/>
         {this.state.items.map((item) => {
           return(
             <RenderItems key={item.id} text={item}/>
