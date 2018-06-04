@@ -1,13 +1,26 @@
 import React, { Component } from 'react';
 import { Dropbox } from 'dropbox';
+import { parseQueryString } from './utils';
 
 const RenderItems = ({text}) => {
+  const extensions = /\.(jpg|png|PNG|gif)\b/;
   return(
     <div>
-      {text[".tag"] === 'file' &&
+      {text[".tag"] === 'file' && !text.name.match(extensions) &&
       <div>
         <h2>
           file
+        </h2>
+        <p>
+        {text.size}kb
+      </p>
+      </div>
+      }
+
+      {text[".tag"] === 'file' && text.name.match(extensions) &&
+      <div>
+        <h2>
+          IMG 
         </h2>
         <p>
         {text.size}kb
@@ -47,7 +60,7 @@ class Items extends Component {
     }
   
     componentWillMount() {
-      let dbx = new Dropbox({ accessToken: localStorage.getItem('token') });
+      let dbx = new Dropbox({ accessToken: parseQueryString(window.location.hash).access_token });
       dbx.filesListFolder({path: ''})
       .then((response) => this.onClick(response.entries))
       .catch((error) => {
@@ -67,7 +80,7 @@ class Items extends Component {
     e.preventDefault();
       
     const UPLOAD_FILE_SIZE_LIMIT = 150 * 1024 * 1024;
-    var dbx = new Dropbox({ accessToken: localStorage.getItem('token') });
+    var dbx = new Dropbox({ accessToken: parseQueryString(window.location.hash).access_token });
     var fileInput = document.getElementById('upload-file');
     var file = fileInput.files[0];
     
@@ -75,6 +88,7 @@ class Items extends Component {
       dbx.filesUpload({path: '/' + file.name, contents: file})
         .then((response) => {
           console.log(response);
+          window.location.reload();
         })
         .catch((error) => {
           console.error(error);

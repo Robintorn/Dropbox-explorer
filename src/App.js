@@ -40,13 +40,13 @@ class App extends Component {
         localStorage.setItem('token', token);
 
         // After saving the token - remove the token from URL
-        window.location.replace('http://localhost:3000');
+        window.location.reload();
     }
   }
 
   logOut = () => {
         localStorage.removeItem('token');
-        window.location.reload();
+        window.location.replace('http://localhost:3000');
     };
 
   render() {
