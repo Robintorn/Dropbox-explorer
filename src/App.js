@@ -37,7 +37,7 @@ class App extends Component {
         if (!token) {
             return;
         }
-        localStorage.setItem('token', JSON.stringify(token));
+        localStorage.setItem('token', token);
 
         // After saving the token - remove the token from URL
         window.location.replace('http://localhost:3000');

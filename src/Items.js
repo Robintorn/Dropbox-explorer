@@ -21,9 +21,10 @@ const RenderItems = ({text}) => {
         </h2>
       }
       <p>
-        {text.server_modified}
-        <br/>
         {text.name}
+      </p>
+      <p>
+        {text.server_modified}
       </p>
     </div>
   )
@@ -46,7 +47,7 @@ class Items extends Component {
     }
   
     componentWillMount() {
-      let dbx = new Dropbox({ accessToken: "BW7-qRPIdfAAAAAAAAAAxXtENJaBF6PObfF7GcSOFtdYMseuO_XndDdDhrCOpyWc" });
+      let dbx = new Dropbox({ accessToken: localStorage.getItem('token') });
       dbx.filesListFolder({path: ''})
       .then((response) => this.onClick(response.entries))
       .catch((error) => {
@@ -66,7 +67,7 @@ class Items extends Component {
     e.preventDefault();
       
     const UPLOAD_FILE_SIZE_LIMIT = 150 * 1024 * 1024;
-    var dbx = new Dropbox({ accessToken: "BW7-qRPIdfAAAAAAAAAAxXtENJaBF6PObfF7GcSOFtdYMseuO_XndDdDhrCOpyWc" });
+    var dbx = new Dropbox({ accessToken: localStorage.getItem('token') });
     var fileInput = document.getElementById('upload-file');
     var file = fileInput.files[0];
     
