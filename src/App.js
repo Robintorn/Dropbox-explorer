@@ -18,11 +18,11 @@ const RenderIfLoggedOut = () => (
 
 const name = () => {
       // or your "App key" in Dropbox lingo.
-      var CLIENT_ID = '2e9a5elj4q8ikcs'; 
+      const CLIENT_ID = '2e9a5elj4q8ikcs'; 
       
           // note: This must correspond exactly to the redirect URI you've specified for your
           // Dropbox app.
-      var dbx = new Dropbox({ clientId: CLIENT_ID });
+      const dbx = new Dropbox({ clientId: CLIENT_ID });
       window.location = dbx.getAuthenticationUrl('http://localhost:3000/');
 }
 
@@ -40,7 +40,7 @@ class App extends Component {
         localStorage.setItem('token', token);
 
         // After saving the token - remove the token from URL
-        window.location.reload();
+        window.location.replace('http://localhost:3000');
     }
   }
 

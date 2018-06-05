@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Dropbox } from 'dropbox';
-import { parseQueryString } from './utils';
 
 const RenderItems = ({text, folder}) => {
   const extensions = /\.(jpg|png|PNG|gif)\b/;
@@ -58,7 +57,7 @@ class Items extends Component {
     }
   
     componentWillMount() {
-      let dbx = new Dropbox({ accessToken: parseQueryString(window.location.hash).access_token });
+      let dbx = new Dropbox({ accessToken: localStorage.getItem("token") });
       dbx.filesListFolder({path: ''})
       .then((response) => this.loadItems(response.entries))
       .catch((error) => {
@@ -70,14 +69,15 @@ class Items extends Component {
     loadItems = (response) => {
       console.log(response);
       this.setState({
-        items: response
+        items: response,
+        show: false
       })
     }
 
     folderClick = (path_lower) => {
-      let dbx = new Dropbox({ accessToken: parseQueryString(window.location.hash).access_token });
+      let dbx = new Dropbox({ accessToken: localStorage.getItem("token") });
       dbx.filesListFolder({path: path_lower})
-      .then((response) => this.setState({items: response.entries}))
+      .then((response) => this.setState({items: response.entries, show: true}))
       .catch((error) => {
         console.error(error);
       });
@@ -88,7 +88,7 @@ class Items extends Component {
     e.preventDefault();
       
     const UPLOAD_FILE_SIZE_LIMIT = 150 * 1024 * 1024;
-    var dbx = new Dropbox({ accessToken: parseQueryString(window.location.hash).access_token });
+    var dbx = new Dropbox({ accessToken: localStorage.getItem("token") });
     var fileInput = document.getElementById('upload-file');
     var file = fileInput.files[0];
     
@@ -148,7 +148,7 @@ class Items extends Component {
   
     render(){
     return(
-      <div>
+    <div>
       <RenderUpload upload={this.uploadFile}/>
         {this.state.items.map((item) => {
           return(
