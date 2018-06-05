@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Dropbox } from 'dropbox';
 import { parseQueryString } from './utils';
 
-const RenderItems = ({text}) => {
+const RenderItems = ({text, folder}) => {
   const extensions = /\.(jpg|png|PNG|gif)\b/;
   return(
     <div>
@@ -19,9 +19,7 @@ const RenderItems = ({text}) => {
 
       {text[".tag"] === 'file' && text.name.match(extensions) &&
       <div>
-        <h2>
-          IMG 
-        </h2>
+        <h2>IMG</h2>
         <p>
         {text.size}kb
       </p>
@@ -29,7 +27,7 @@ const RenderItems = ({text}) => {
       }
 
       {text[".tag"] === 'folder' &&
-        <h2>
+        <h2 onClick={folder}>
           folder
         </h2>
       }
@@ -62,17 +60,27 @@ class Items extends Component {
     componentWillMount() {
       let dbx = new Dropbox({ accessToken: parseQueryString(window.location.hash).access_token });
       dbx.filesListFolder({path: ''})
-      .then((response) => this.onClick(response.entries))
+      .then((response) => this.loadItems(response.entries))
       .catch((error) => {
         console.error(error);
       });
     }
+    
   
-    onClick = (response) => {
+    loadItems = (response) => {
       console.log(response);
       this.setState({
         items: response
       })
+    }
+
+    folderClick = (path_lower) => {
+      let dbx = new Dropbox({ accessToken: parseQueryString(window.location.hash).access_token });
+      dbx.filesListFolder({path: path_lower})
+      .then((response) => this.setState({items: response.entries}))
+      .catch((error) => {
+        console.error(error);
+      });
     }
 
     uploadFile = (e) => {
@@ -144,7 +152,7 @@ class Items extends Component {
       <RenderUpload upload={this.uploadFile}/>
         {this.state.items.map((item) => {
           return(
-            <RenderItems key={item.id} text={item}/>
+            <RenderItems key={item.id} text={item} folder={() => this.folderClick(item.path_lower)}/>
           )
         })}
       </div>
