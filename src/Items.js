@@ -109,7 +109,6 @@ class Items extends Component {
       dbx.filesUpload({path: '/' + file.name, contents: file})
         .then((response) => {
           console.log(response);
-          window.location.reload();
         })
         .catch((error) => {
           console.error(error);
