@@ -1,6 +1,21 @@
 import React, { Component } from 'react';
 import { Dropbox } from 'dropbox';
 
+const LoadThumbnail = ({file}) => {
+  
+      let dbx = new Dropbox({ accessToken: localStorage.getItem("token") });
+      dbx.filesGetThumbnail({path: file.path_lower, size: "w64h64"})
+          .then((response) => {
+              let fileName = file.name;
+              let imageUrl = URL.createObjectURL(response.fileBlob);
+              document.getElementById(`${fileName}`).src = imageUrl;
+          });
+  
+      return (
+          <img id={file.name} src="" alt=""/>
+      )
+  }
+
 const RenderItems = ({text, folder, star}) => {
   const extensions = /\.(jpg|png|PNG|gif)\b/;
   return(
@@ -14,14 +29,14 @@ const RenderItems = ({text, folder, star}) => {
         {text.name}
       </p>
         <p>
-        {text.size}kb
+        {`Size: ${text.size}kb Last modified: ${text.client_modified}`}
       </p>
       </div>
       }
 
       {text[".tag"] === 'file' && text.name.match(extensions) &&
       <div>
-        <h2>IMG</h2>
+        <LoadThumbnail file={text}/>
         <p>
         {text.name}
         </p>
