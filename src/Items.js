@@ -70,17 +70,21 @@ class Items extends Component {
       console.log(response);
       this.setState({
         items: response,
-        show: false
       })
     }
 
-    folderClick = (path_lower) => {
+    folderClick = (path_lower, name) => {
       let dbx = new Dropbox({ accessToken: localStorage.getItem("token") });
       dbx.filesListFolder({path: path_lower})
-      .then((response) => this.setState({items: response.entries, show: true}))
+      .then((response) => this.setState({items: response.entries}))
       .catch((error) => {
         console.error(error);
       });
+      console.log(name);
+      document.getElementsByTagName('ul')[0].innerHTML += `
+      <li>></li>
+      <li>${name}</li>
+      `
     }
 
     uploadFile = (e) => {
@@ -145,14 +149,21 @@ class Items extends Component {
     }
     return false;
   }
+
+  resetPage = () => {
+    window.location.reload();
+  }
   
     render(){
     return(
     <div>
+      <ul>
+        <li onClick={this.resetPage}>DROPBOX</li>
+      </ul>
       <RenderUpload upload={this.uploadFile}/>
         {this.state.items.map((item) => {
           return(
-            <RenderItems key={item.id} text={item} folder={() => this.folderClick(item.path_lower)}/>
+            <RenderItems key={item.id} text={item} folder={() => this.folderClick(item.path_lower, item.name)}/>
           )
         })}
       </div>
