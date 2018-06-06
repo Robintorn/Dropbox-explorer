@@ -81,10 +81,19 @@ class Items extends Component {
         console.error(error);
       });
       console.log(name);
-      document.getElementsByTagName('ul')[0].innerHTML += `
-      <li>></li>
-      <li>${name}</li>
-      `
+      let create = document.getElementsByTagName('ul')[0];
+
+      let li = document.createElement('li');
+      let text = document.createTextNode(">");
+
+      create.appendChild(li);
+      li.appendChild(text);
+
+      let li2 = document.createElement('li');
+      let text2 = document.createTextNode(name);
+
+      create.appendChild(li2);
+      li2.appendChild(text2);
     }
 
     uploadFile = (e) => {
