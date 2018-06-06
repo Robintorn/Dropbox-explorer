@@ -67,10 +67,13 @@ class Items extends Component {
     
   
     loadItems = (response) => {
-      console.log(response);
+    response.forEach(item => {
+        item["starred"] = false;
+    });
       this.setState({
         items: response,
-      })
+      });
+    console.log(response);
     }
 
     folderClick = (path_lower, name) => {
