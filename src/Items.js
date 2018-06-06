@@ -36,7 +36,7 @@ const RenderItems = ({text, folder}) => {
       <p>
         {text.server_modified}
       </p>
-    </div>
+      </div>
   )
 }
 
