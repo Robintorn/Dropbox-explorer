@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Dropbox } from 'dropbox';
 
-const RenderItems = ({text, folder}) => {
+const RenderItems = ({text, folder, star}) => {
   const extensions = /\.(jpg|png|PNG|gif)\b/;
   return(
     <div>
@@ -10,6 +10,9 @@ const RenderItems = ({text, folder}) => {
         <h2>
           file
         </h2>
+        <p>
+        {text.name}
+      </p>
         <p>
         {text.size}kb
       </p>
@@ -20,22 +23,22 @@ const RenderItems = ({text, folder}) => {
       <div>
         <h2>IMG</h2>
         <p>
-        {text.size}kb
-      </p>
+        {text.name}
+        </p>
+        {`Size: ${text.size}kb Last modified: ${text.client_modified}`}
       </div>
       }
 
       {text[".tag"] === 'folder' &&
+      <div>
         <h2 onClick={folder}>
           folder
         </h2>
+        <p>
+          {text.name}
+        </p>
+        </div>
       }
-      <p>
-        {text.name}
-      </p>
-      <p>
-        {text.server_modified}
-      </p>
       </div>
   )
 }
@@ -119,7 +122,7 @@ class Items extends Component {
     }
     return false;
   }
-
+ 
   resetPage = () => {
     window.location.reload();
   }
