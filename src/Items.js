@@ -1,69 +1,10 @@
 import React, { Component } from 'react';
 import { Dropbox } from 'dropbox';
 
-const LoadThumbnail = ({file}) => {
-  
-      let dbx = new Dropbox({ accessToken: localStorage.getItem("token") });
-      dbx.filesGetThumbnail({path: file.path_lower, size: "w64h64"})
-          .then((response) => {
-              let fileName = file.name;
-              let imageUrl = URL.createObjectURL(response.fileBlob);
-              document.getElementById(`${fileName}`).src = imageUrl;
-          });
-  
-      return (
-          <img id={file.name} src="" alt=""/>
-      )
-  }
+//Components
 
-const RenderItems = ({text, folder, star}) => {
-  const extensions = /\.(jpg|png|PNG|gif)\b/;
-  return(
-    <div>
-      {text[".tag"] === 'file' && !text.name.match(extensions) &&
-      <div>
-        <h2>
-          file
-        </h2>
-        <p>
-        {text.name}
-      </p>
-        <p>
-        {`Size: ${text.size}kb Last modified: ${text.client_modified}`}
-      </p>
-      </div>
-      }
-
-      {text[".tag"] === 'file' && text.name.match(extensions) &&
-      <div>
-        <LoadThumbnail file={text}/>
-        <p>
-        {text.name}
-        </p>
-        {`Size: ${text.size}kb Last modified: ${text.client_modified}`}
-      </div>
-      }
-
-      {text[".tag"] === 'folder' &&
-      <div>
-        <h2 onClick={folder}>
-          folder
-        </h2>
-        <p>
-          {text.name}
-        </p>
-        </div>
-      }
-      </div>
-  )
-}
-
-const RenderUpload = ({upload}) => (
-  <form onSubmit={upload}>
-  <input type="file" id="upload-file" placeholder="Upload file" />
-  <button type="submit">Upload</button>
-  </form>
-)
+import RenderItems from './components/RenderItems';
+import RenderUpload from './components/RenderUpload';
 
 class Items extends Component {
     constructor() {
