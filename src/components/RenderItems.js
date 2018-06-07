@@ -17,6 +17,7 @@ const RenderItems = ({text, folder, star}) => {
           <p>
           {`Size: ${text.size}kb Last modified: ${text.client_modified}`}
         </p>
+        <OnDownload file={text}/>
         </div>
         }
   
