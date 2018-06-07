@@ -99,5 +99,5 @@ class Items extends Component {
     )
   }
   }
-
+  
 export default Items;

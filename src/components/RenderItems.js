@@ -1,4 +1,5 @@
 import React from 'react';
+import OnDownload from '../assets/OnDownload';
 import LoadThumbnail from '../assets/LoadThumbnail';
 
 const RenderItems = ({text, folder, star}) => {
@@ -25,7 +26,8 @@ const RenderItems = ({text, folder, star}) => {
           <p>
           {text.name}
           </p>
-          {`Size: ${text.size}kb Last modified: ${text.client_modified}`}
+          <p>{`Size: ${text.size}kb Last modified: ${text.client_modified}`}</p>
+          <OnDownload file={text}/>
         </div>
         }
   
