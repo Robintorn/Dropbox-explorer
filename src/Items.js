@@ -64,13 +64,12 @@ class Items extends Component {
     uploadFile = (e) => {
 
     e.preventDefault();
-      
-    const UPLOAD_FILE_SIZE_LIMIT = 150 * 1024 * 1024;
+
     var dbx = new Dropbox({ accessToken: localStorage.getItem("token") });
     var fileInput = document.getElementById('upload-file');
     var file = fileInput.files[0];
     
-    if (file.size < UPLOAD_FILE_SIZE_LIMIT) { // File is smaller than 150 Mb - use filesUpload API
+    if (file) {
       dbx.filesUpload({path: '/' + file.name, contents: file})
         .then((response) => {
           console.log(response);
@@ -79,6 +78,8 @@ class Items extends Component {
         .catch((error) => {
           console.error(error);
         });
+    }else{
+      alert('Select a file');
     }
     return false;
   }
