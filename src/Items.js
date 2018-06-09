@@ -12,7 +12,8 @@ class Items extends Component {
       super();
   
       this.state = {
-        items: []
+        items: [],
+        starred: []
       }
     }
   
@@ -27,9 +28,6 @@ class Items extends Component {
     
   
     loadItems = (response) => {
-    response.forEach(item => {
-        item["starred"] = false;
-    });
       this.setState({
         items: response,
       });
@@ -37,13 +35,18 @@ class Items extends Component {
     }
 
     starrItems = (star) => {
-      let recipesCopy = JSON.parse(JSON.stringify(this.state.items));
-      recipesCopy[1].starred = !this.state.items[1].starred;
+      let starred = this.state.starred.slice();
+      starred.push(star);
       this.setState({
-        items: recipesCopy
-      });
-      console.log(this.state.items);
+        starred: starred
+      })
     }
+
+    removeStar = (id) => {
+      this.setState({
+        starred: this.state.starred.filter((star) => star.id !== id)
+      });
+    } 
 
     folderClick = (path_lower, name) => {
       let dbx = new Dropbox({ accessToken: localStorage.getItem("token") });
@@ -104,10 +107,16 @@ class Items extends Component {
       <RenderUpload upload={this.uploadFile}/>
         {this.state.items.map((item) => {
           return(
-            <RenderItems key={item.id} text={item} folder={() => this.folderClick(item.path_lower, item.name)} star={() => this.starrItems(item.starred)}/>
+            <RenderItems key={item.id} text={item} folder={() => this.folderClick(item.path_lower, item.name)} star={() => this.starrItems(item)}/>
           )
         })}
-        <RenderStarredItems />
+        <h1>Starred Items</h1>
+        {!this.state.starred.length ? null 
+        : (
+          this.state.starred.map((item) => {
+            return <RenderStarredItems key={item.id} name={item.name} remove={() => this.removeStar(item.id)}/>;
+          })
+        )}
       </div>
     )
   }

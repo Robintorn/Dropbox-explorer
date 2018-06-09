@@ -42,8 +42,12 @@ const RenderItems = ({text, folder, star}) => {
           <p>
             {text.name}
           </p>
+          <button onClick={star}>Star</button>
           </div>
         }
+        {text.starred && (
+          <div>{text.name}</div>
+        )}
         </div>
     )
   };
