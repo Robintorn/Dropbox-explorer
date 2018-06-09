@@ -29,6 +29,8 @@ const RenderItems = ({text, folder, star}) => {
           </p>
           <p>{`Size: ${text.size}kb Last modified: ${text.client_modified}`}</p>
           <OnDownload file={text}/>
+          <br />
+          <button onClick={star}>Star</button>
         </div>
         }
   
@@ -42,9 +44,6 @@ const RenderItems = ({text, folder, star}) => {
           </p>
           </div>
         }
-        {text.starred && (
-          <p>{text.name}</p>
-        )}
         </div>
     )
   };

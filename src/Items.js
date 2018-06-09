@@ -5,6 +5,7 @@ import { Dropbox } from 'dropbox';
 
 import RenderItems from './components/RenderItems';
 import RenderUpload from './components/RenderUpload';
+import RenderStarredItems from './components/RenderStarred';
 
 class Items extends Component {
     constructor() {
@@ -36,6 +37,12 @@ class Items extends Component {
     }
 
     starrItems = (star) => {
+      let recipesCopy = JSON.parse(JSON.stringify(this.state.items));
+      recipesCopy[1].starred = !this.state.items[1].starred;
+      this.setState({
+        items: recipesCopy
+      });
+      console.log(this.state.items);
     }
 
     folderClick = (path_lower, name) => {
@@ -100,6 +107,7 @@ class Items extends Component {
             <RenderItems key={item.id} text={item} folder={() => this.folderClick(item.path_lower, item.name)} star={() => this.starrItems(item.starred)}/>
           )
         })}
+        <RenderStarredItems />
       </div>
     )
   }
