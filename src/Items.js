@@ -34,12 +34,15 @@ class Items extends Component {
     console.log(response);
     }
 
-    starrItems = (star) => {
-      let starred = this.state.starred.slice();
-      starred.push(star);
+    starrItems = (item) => {
+      let items = this.state.starred.slice();
+      if (items.indexOf(item) === -1) {
+        items.push(item);
+      }
       this.setState({
-        starred: starred
-      })
+        starred: items
+      });
+      console.log(this.state.starred);
     }
 
     removeStar = (id) => {
