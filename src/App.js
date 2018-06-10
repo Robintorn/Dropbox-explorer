@@ -8,12 +8,16 @@ import Items from './Items';
 
 const RenderIfLoggedin = ({logout}) => (
   <div>
-  <button onClick={logout}>Logout</button>
+  <button className="logout" onClick={logout}>Logout</button>
   </div>
 )
 
 const RenderIfLoggedOut = () => (
-  <a onClick={() => name()}>Login</a>
+  <div className="grid-login">
+    <div className="login">
+    <a onClick={() => name()}>Login</a>
+    </div>
+  </div>
 )
 
 const name = () => {

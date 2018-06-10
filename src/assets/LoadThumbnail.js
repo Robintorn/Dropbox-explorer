@@ -12,7 +12,7 @@ const LoadThumbnail = ({file}) => {
             });
     
         return (
-            <img id={file.name} src="" alt="" />
+            <img className="thumbnail" id={file.name} src="" alt="" />
         )
     };
 

@@ -6,3 +6,116 @@ ul{
 li{
     padding-left: 1em;
 }
+p{
+    margin-top: 0.1em;
+    margin-bottom: 0.1em;
+}
+.icon-file{
+    margin-top: 0.5em; 
+    width: 3em;
+}
+.icon-folder{
+    width: 2em;
+}
+.gride{
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: auto;
+}
+.items{
+    border-color: rgb(172, 172, 172);
+    border-top-style: solid;
+    border-width: 1,5px;
+    grid-column-start: 1; 
+    grid-column-end: 3;
+    grid-row-start: 2;
+}
+.upload{
+    padding: 1em;
+    border-color: #acacac;
+    border-left-style: solid;
+    grid-column-start:2;
+    grid-column-end: 3;
+    grid-row-start: 2;
+    grid-row-end:3;
+}
+.stared{
+    border-color: #acacac;
+    border-left-style: solid;
+    border-top-style: solid;
+    grid-column-start:2;
+    grid-column-end: 3;
+    grid-row-start: 3;
+    grid-row-end:4;
+}
+.header{
+    grid-column-start:1;
+    grid-column-end: 2;
+    grid-row-start: 1;
+    grid-row-end:2;
+}
+.logout{
+    float: right;
+    background-color: red;
+}
+.grid-items{
+    margin-bottom:0.3em; 
+    margin-top:0.3em; 
+    display: grid;
+    grid-template-columns: auto auto 1fr;
+    grid-template-rows: auto;
+}
+.icon{
+    grid-column-start: 1;
+    grid-column-end: 2;
+}
+.gride-content{
+    grid-column-start: 2;
+    grid-column-end: 3;
+}
+.star{
+    width: 3em;
+}
+.thumbnail{
+    margin-top: 0.5em;
+    margin-right:0.5em; 
+}
+.grid-buttons{
+    margin-left:0.5em;
+}
+.folder-name{
+    margin-left: 0.5em;
+    padding-top: 1.5em;
+}
+.folder-b{
+    padding-top: 1.5em;
+}
+.file-b{
+    padding-top: 0.5em;
+}
+.login{
+    grid-column-start:2;
+    grid-column-end: 3;
+    grid-row-start: 8;
+    grid-row-end:9;
+    padding-bottom: 1em;
+    padding-top: 1em;
+    padding-right: 1em;
+    padding-left: 1em;
+    width: 10em;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    border-style: solid;
+    border-color: black;
+    border-width: 2px;
+    background-color:lightblue; 
+}
+.grid-login{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    justify-items: center;
+}
+

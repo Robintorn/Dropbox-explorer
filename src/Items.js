@@ -103,24 +103,32 @@ class Items extends Component {
   
     render(){
     return(
-    <div>
-      <ul>
+  <div className="gride">
+    <div className="header">
+    <ul>
         <li onClick={this.resetPage}>DROPBOX</li>
       </ul>
-      <RenderUpload upload={this.uploadFile}/>
-        {this.state.items.map((item) => {
-          return(
-            <RenderItems key={item.id} text={item} folder={() => this.folderClick(item.path_lower, item.name)} star={() => this.starrItems(item)}/>
-          )
-        })}
-        <h1>Starred Items</h1>
+    </div>
+    <div className="upload">
+    <RenderUpload upload={this.uploadFile}/>
+    </div>
+    <div className="stared">
+    <h1>Starred Items</h1>
         {!this.state.starred.length ? null 
         : (
           this.state.starred.map((item) => {
             return <RenderStarredItems key={item.id} name={item.name} remove={() => this.removeStar(item.id)}/>;
           })
         )}
+    </div>
+    <div className="items">
+        {this.state.items.map((item) => {
+          return(
+            <RenderItems key={item.id} text={item} folder={() => this.folderClick(item.path_lower, item.name)} star={() => this.starrItems(item)}/>
+          )
+        })}
       </div>
+    </div>
     )
   }
   }

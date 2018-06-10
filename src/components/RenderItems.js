@@ -7,42 +7,59 @@ const RenderItems = ({text, folder, star}) => {
     return(
       <div>
         {text[".tag"] === 'file' && !text.name.match(extensions) &&
-        <div>
-          <h2>
-            file
-          </h2>
-          <p>
+        <div className="grid-items">
+          <img className="icon-file icon" src="image/Icon_New_File_256x256.png"/>
+          <div className="grid-content">
+          <p className="name">
           {text.name}
+          </p>
+          <p className="size">
+          {`Size: ${text.size}kb`}
         </p>
-          <p>
-          {`Size: ${text.size}kb Last modified: ${text.client_modified}`}
+        <p className="modified">
+        {`Last modified: ${text.client_modified}`}
         </p>
+        </div>
+        <div className="grid-buttons file-b">
         <OnDownload file={text}/>
+        <br/>
+        <button className="star" onClick={star}>Star</button>
+        </div>        
+        
         </div>
         }
   
         {text[".tag"] === 'file' && text.name.match(extensions) &&
-        <div>
+        <div className="grid-items">
           <LoadThumbnail file={text}/>
+          <div className="grid-content">
           <p>
           {text.name}
           </p>
-          <p>{`Size: ${text.size}kb Last modified: ${text.client_modified}`}</p>
+          <p>{`Size: ${text.size}kb`}</p>
+          <p>
+          {` Last modified: ${text.client_modified}`}
+          </p>
+          </div>
+          <div className="grid-buttons file-b">
           <OnDownload file={text}/>
           <br />
-          <button onClick={star}>Star</button>
+          <button className="star" onClick={star}>Star</button>
+          </div>
         </div>
         }
   
         {text[".tag"] === 'folder' &&
-        <div>
-          <h2 onClick={folder}>
-            folder
-          </h2>
-          <p>
+        <div className="grid-items">
+          <img onClick={folder} className="icon-file" src="image/Folder_4_icon-72a7cf.svg.png"/>
+          <div className="grid-content folder-name">
+          <p onClick={folder}>
             {text.name}
           </p>
-          <button onClick={star}>Star</button>
+          </div>
+          <div className="grid-buttons folder-b">
+          <button className="star" onClick={star}>Star</button>
+          </div>
           </div>
         }
         {text.starred && (
