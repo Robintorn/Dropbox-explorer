@@ -8,7 +8,7 @@ const RenderItems = ({text, folder, star}) => {
       <div>
         {text[".tag"] === 'file' && !text.name.match(extensions) &&
         <div className="grid-items">
-          <img className="icon-file icon" src="image/Icon_New_File_256x256.png"/>
+          <img className="icon-file icon" alt="" src="image/Icon_New_File_256x256.png"/>
           <div className="grid-content">
           <p className="name">
           {text.name}
@@ -51,7 +51,7 @@ const RenderItems = ({text, folder, star}) => {
   
         {text[".tag"] === 'folder' &&
         <div className="grid-items">
-          <img onClick={folder} className="icon-file" src="image/Folder_4_icon-72a7cf.svg.png"/>
+          <img onClick={folder} alt="" className="icon-file" src="image/Folder_4_icon-72a7cf.svg.png"/>
           <div className="grid-content folder-name">
           <p onClick={folder}>
             {text.name}
