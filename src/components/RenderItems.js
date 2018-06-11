@@ -62,9 +62,6 @@ const RenderItems = ({text, folder, star}) => {
           </div>
           </div>
         }
-        {text.starred && (
-          <div>{text.name}</div>
-        )}
         </div>
     )
   };
