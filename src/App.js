@@ -27,7 +27,7 @@ const name = () => {
           // note: This must correspond exactly to the redirect URI you've specified for your
           // Dropbox app.
       const dbx = new Dropbox({ clientId: CLIENT_ID });
-      window.location = dbx.getAuthenticationUrl('http://localhost:3000/');
+      window.location = dbx.getAuthenticationUrl('https://react-dropbox-explorer-fefef.firebaseapp.com/');
 }
 
 class App extends Component {
@@ -44,13 +44,13 @@ class App extends Component {
         localStorage.setItem('token', token);
 
         // After saving the token - remove the token from URL
-        window.location.replace('http://localhost:3000');
+        window.location.replace('https://react-dropbox-explorer-fefef.firebaseapp.com');
     }
   }
 
   logOut = () => {
         localStorage.removeItem('token');
-        window.location.replace('http://localhost:3000');
+        window.location.replace('https://react-dropbox-explorer-fefef.firebaseapp.com');
     };
 
   render() {
