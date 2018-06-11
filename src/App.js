@@ -43,7 +43,6 @@ class App extends Component {
         }
         localStorage.setItem('token', token);
 
-        // After saving the token - remove the token from URL
         window.location.replace('https://react-dropbox-explorer-fefef.firebaseapp.com');
     }
   }
