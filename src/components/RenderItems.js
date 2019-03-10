@@ -2,7 +2,7 @@ import React from 'react';
 import OnDownload from '../assets/OnDownload';
 import LoadThumbnail from '../assets/LoadThumbnail';
 
-const RenderItems = ({text, folder, star}) => {
+const RenderItems = ({text, folder, star, removestar, remove}) => {
     const extensions = /\.(jpg|png|PNG|gif)\b/;
     return(
       <div>
@@ -23,7 +23,11 @@ const RenderItems = ({text, folder, star}) => {
         <div className="grid-buttons file-b">
         <OnDownload file={text}/>
         <br/>
-        <button className="star" onClick={star}>Star</button>
+        {removestar ? (
+            <button onClick={remove}>Remove</button>
+          ) : (
+            <button className="star" onClick={star}>Star</button>
+          )}
         </div>        
         
         </div>
@@ -31,6 +35,7 @@ const RenderItems = ({text, folder, star}) => {
   
         {text[".tag"] === 'file' && text.name.match(extensions) &&
         <div className="grid-items">
+        {}
           <LoadThumbnail file={text}/>
           <div className="grid-content">
           <p>
@@ -44,21 +49,29 @@ const RenderItems = ({text, folder, star}) => {
           <div className="grid-buttons file-b">
           <OnDownload file={text}/>
           <br />
-          <button className="star" onClick={star}>Star</button>
+          {removestar ? (
+            <button onClick={remove}>Remove</button>
+          ) : (
+            <button className="star" onClick={star}>Star</button>
+          )}
           </div>
         </div>
         }
   
         {text[".tag"] === 'folder' &&
         <div className="grid-items">
-          <img onClick={folder} alt="" className="icon-file" src="image/Folder_4_icon-72a7cf.svg.png"/>
-          <div className="grid-content folder-name">
+          <img onClick={folder} alt="" className="icon-file cursor-pointer" src="image/Folder_4_icon-72a7cf.svg.png"/>
+          <div className="grid-content folder-name cursor-pointer">
           <p onClick={folder}>
             {text.name}
           </p>
           </div>
           <div className="grid-buttons folder-b">
-          <button className="star" onClick={star}>Star</button>
+          {removestar ? (
+            <button onClick={remove}>Remove</button>
+          ) : (
+            <button className="star" onClick={star}>Star</button>
+          )}
           </div>
           </div>
         }

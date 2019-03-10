@@ -54,6 +54,12 @@ p{
     grid-row-start: 1;
     grid-row-end:2;
 }
+
+.cursor-pointer {
+    cursor: pointer;
+    font-weight: bold;
+}
+
 .logout{
     float: right;
     background-color: red;
@@ -119,3 +125,11 @@ p{
     justify-items: center;
 }
 
+
+.upload-form .upload-file[type="file"]:before {
+    font-family: 'FontAwesome';
+    position: absolute;
+    top: 0px;
+    left: -5px;
+    content: "\f007";
+}

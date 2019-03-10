@@ -9,6 +9,7 @@ const onDownload = ({file}) => {
         let fileName = file.path_display;
         document.getElementById(`${fileName}`).setAttribute('href', data.link);
       })
+      .catch(err => console.log(err));
       return (
         <a id={file.path_display} href="">Download</a>
       )
